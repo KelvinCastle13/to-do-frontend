@@ -24,7 +24,7 @@ export default {
     <h1>Task information</h1>
     <p>Title: {{ todo.title }}</p>
     <p>Description: {{ todo.description }}</p>
-    <p>Completed: {{ todo.completed }}</p>
+    <p>Completed: {{ todo.completed ? "Yes" : "No" }}</p>
     <form v-on:submit.prevent="handleSubmit">
        <div>
          Title:
@@ -36,7 +36,7 @@ export default {
        </div>
        <div>
          Completed:
-         <input v-model="editTodoParams.completed" type="text" />
+         <input v-model="editTodoParams.completed" type="checkbox" />
        </div>
        <button type="submit">Update Task</button>
      </form>

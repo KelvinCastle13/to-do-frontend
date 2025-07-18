@@ -89,8 +89,7 @@ export default {
     <TodoIndex  
     v-bind:todos="todos"
     v-on:showTodo="handleShowTodo" 
-    v-bind:completed="false" 
-    /> 
+    />
     <Modal 
     v-bind:show="isTodosShowVisible" 
     v-on:close="handleClose">

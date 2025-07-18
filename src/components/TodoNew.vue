@@ -2,13 +2,22 @@
 export default {
   data: function () {
     return {
-      newTodoParams: {},
+      newTodoParams: {
+        title: "",
+        description: "",
+        completed: false
+      },
     };
   },
   methods: {
     handleSubmit: function () {
+      console.log("Submitting todo params:", this.newTodoParams);
       this.$emit("handleCreateTodo", this.newTodoParams);
-      this.newTodoParams = {};
+      this.newTodoParams = {
+        title: "",
+        description: "",
+        completed: false
+      };
     },
   },
 };
