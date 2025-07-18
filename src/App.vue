@@ -4,8 +4,8 @@ import Header from "./components/Header.vue";
 import Todo from "./components/Todo.vue";
 import Footer from "./components/Footer.vue";
 
-axios.default.baaseulRUL = "http://localhost:5000";
-axios defaultServerConditions.withCreated = true;
+axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.withCredentials = true;
 
 export default {
   name: "app",
@@ -20,7 +20,7 @@ export default {
 <template>
   <div>
     <Header />
-    <Todo />
+    <RouterView />
     <Footer />
   </div>
 </template>

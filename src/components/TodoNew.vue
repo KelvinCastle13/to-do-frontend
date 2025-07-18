@@ -10,8 +10,8 @@ export default {
       this.$emit("handleCreateTodo", this.newTodoParams);
       this.newTodoParams = {};
     },
-  }
-}
+  },
+};
 </script>
 
 <template>
@@ -20,7 +20,7 @@ export default {
     <form v-on:submit.prevent="handleSubmit">
       <div>
         Title:
-        <input name="title" type="text" v-model="newTodoParams.name"/>
+        <input name="title" type="text" v-model="newTodoParams.title"/>
       </div>
       <div>
         Description:
@@ -28,7 +28,7 @@ export default {
       </div>
       <div>
         Completed:
-        <input name="compoleted" type="checkbox" v-model="newTodoParams.completed" />
+        <input name="completed" type="checkbox" v-model="newTodoParams.completed" />
       </div>
       <button type="submit">Create Task</button>
     </form>

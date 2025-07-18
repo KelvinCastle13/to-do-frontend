@@ -15,75 +15,70 @@ export default {
   },
   data: function () {
     return {
-      todos: [
-        { id: 1, title: "Task 1", completed: false },
-        { id: 2, title: "Task 2", completed: true },
-        { id: 3, title: "Task 3", completed: false }, 
-      ],
+      todos: [],
       currentTodo: {},
       isTodosShowVisible: false,
     }
   },
   created: function () {
-    this.handleIndex();
+    this.handleIndexTodo();
   },
   methods: {
-    handleIndexTasks() {
-      axios.get("/todos").then((response) => {
+    handleIndexTodo() {
+      axios.get("/todos.json").then((response) => {
         console.log("todos index", response.data);
-        this.todo = response.data;
+        this.todos = response.data;
       });
     },
-  }
-
-  handleCreateTodo: function (params) {
-    axios
+    handleCreateTodo: function (params) {
+      axios
       .post("/todos.json", params)
       .then((response) => {
         console.log("todo create", response.data);
         this.todos.push(response.data);
         this.newTodo = {};
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         console.log("todo create error", error);
       });
-  }
-      handleShowTodo: function (todo) {
-        console.log("handleShowTodo", todo);
-        this.currentTodo = todo;
-        this.isTodosShowVisible = true;
-      },
-      handleDestroyTodo: function (todo) {
-       axios.delete(`/todos/${todo.id}.json`).then((response) => {
-         console.log("todos destroy", response);
-         var index = this.todos.indexOf(todo);
-         this.todos.splice(index, 1);
-         this.handleClose();
-       });
-     },
-      handleClose: function () {
-        this.isTodosShowVisible = false;
-      },
-      handleUpdateTodo: function (id, params) {
-       console.log("handleUpdateTodo", id, params);
-       axios
-         .patch(`/todos/${id}.json`, params)
-         .then((response) => {
-           console.log("todos update", response);
-           this.todos = this.todos.map((todo) => {
-             if (todo.id === response.data.id) {
-               return response.data;
-             } else {
-               return todo;
-             }
-           });
-           this.handleClose();
-         })
-         .catch((error) => {
-           console.log("todos update error", error.response);
-         });
-     },
-  };
+    },
+    handleShowTodo: function (todo) {
+      console.log("handleShowTodo", todo);
+      this.currentTodo = todo;
+      this.isTodosShowVisible = true;
+    },
+    handleDestroyTodo: function (todo) {
+      axios.delete(`/todos/${todo.id}.json`).then((response) => {
+        console.log("todos destroy", response);
+        var index = this.todos.indexOf(todo);
+        this.todos.splice(index, 1);
+        this.handleClose();
+      });
+    },
+    handleClose: function () {
+      this.isTodosShowVisible = false;
+    },
+    handleUpdateTodo: function (id, params) {
+      console.log("handleUpdateTodo", id, params);
+      axios
+      .patch(`/todos/${id}.json`, params)
+      .then((response) => {
+        console.log("todos update", response);
+        this.todos = this.todos.map((todo) => {
+          if (todo.id === response.data.id) {
+            return response.data;
+          } else {
+            return todo;
+          }
+        });
+        this.handleClose();
+      })
+      .catch((error) => {
+        console.log("todos update error", error.response);
+      });
+    },
+  },
+};
 </script>
 
 <template>
@@ -93,7 +88,7 @@ export default {
     />
     <TodoIndex  
     v-bind:todos="todos"
-    v-on:showTodo="handleShowTodos" 
+    v-on:showTodo="handleShowTodo" 
     v-bind:completed="false" 
     /> 
     <Modal 
